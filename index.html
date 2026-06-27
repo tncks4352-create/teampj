@@ -3,20 +3,21 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>픽셀디펜스</title>
+  <title>신화창조 · Gods of Olympus</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style-rebrand.css" />
 </head>
 <body>
-  <section id="titleScreen" class="title-screen" aria-label="픽셀디펜스 타이틀 화면">
+  <section id="titleScreen" class="title-screen" aria-label="신화창조 타이틀 화면">
     <div class="pixel-stars" aria-hidden="true">
       <span></span><span></span><span></span><span></span><span></span>
       <span></span><span></span><span></span><span></span><span></span>
     </div>
 
     <div class="title-panel">
-      <p class="title-kicker">ARCADE LINE DEFENSE</p>
-      <h1 class="pixel-logo" aria-label="픽셀디펜스">픽셀디펜스</h1>
-      <p class="title-copy">병사를 소환해 몬스터 기지를 밀어붙이는 픽셀풍 횡스크롤 디펜스</p>
+      <p class="title-kicker">GODS OF OLYMPUS</p>
+      <h1 class="pixel-logo" aria-label="신화창조">신화창조</h1>
+      <p class="title-copy">신들의 권능과 군단을 이끌어 올림포스의 운명을 새로 쓰세요.</p>
 
       <div class="title-preview" aria-hidden="true">
         <div class="mini-base player"></div>
@@ -27,15 +28,19 @@
         <div class="mini-base enemy"></div>
       </div>
 
-      <button id="titleStartBtn" class="title-start-btn" type="button">▶ 게임 시작</button>
-      <p class="title-help">1 방패병 소환 · 2 궁수 소환 · 최대 5명 유지</p>
+      <button id="titleStartBtn" class="title-start-btn" type="button">올림포스로 입장</button>
+      <p class="title-help">횡스크롤 디펜스 × 신화 수집형 RPG</p>
     </div>
   </section>
 
-  <section id="lobbyScreen" class="lobby-screen is-hidden" aria-label="픽셀디펜스 로비 화면">
+  <section id="lobbyScreen" class="lobby-screen is-hidden" aria-label="신화창조 메인 로비">
     <div class="lobby-scanline" aria-hidden="true"></div>
 
-    <button id="lobbyExitBtn" class="lobby-btn lobby-exit" type="button">게임종료</button>
+    <header class="olympus-topbar">
+      <div class="player-medallion"><span>35</span><div><strong>OLYMPUS</strong><small>신들의 지휘관</small></div></div>
+      <div class="lobby-wallet"><span>● <b>12,500</b></span><span>◆ <b>680</b></span></div>
+      <button id="lobbyExitBtn" class="lobby-btn lobby-exit" type="button" aria-label="타이틀로">⚙</button>
+    </header>
 
     <div class="lobby-stage" aria-hidden="true">
       <div class="lobby-sun"></div>
@@ -54,21 +59,28 @@
       <div class="lobby-hero-pixel"></div>
       <div class="lobby-guard-pixel"></div>
       <div class="lobby-flag"></div>
+      <div class="lobby-god-showcase">
+        <p>THUNDER LORD</p>
+        <div class="god-silhouette" aria-hidden="true">⚡</div>
+        <h1>제우스</h1>
+        <strong>Lv.35</strong>
+        <div class="god-stars" aria-label="3성, 승급 게이지 2칸">★★★ <span>■■□□□</span></div>
+      </div>
     </div>
 
 
     <div class="lobby-menu-bar" aria-label="로비 주요 메뉴">
-      <button id="lobbyShopBtn" class="lobby-btn lobby-shop" type="button">상점</button>
-      <button id="lobbyFormationBtn" class="lobby-btn lobby-formation" type="button">편성</button>
-      <button id="lobbyRecruitBtn" class="lobby-btn lobby-recruit" type="button">모집</button>
+      <button id="lobbyRecruitBtn" class="lobby-btn lobby-recruit" type="button"><span>✦</span>신 모집</button>
+      <button id="lobbyFormationBtn" class="lobby-btn lobby-formation" type="button"><span>⇧</span>성장</button>
+      <button id="lobbyBattleBtn" class="lobby-btn lobby-battle" type="button">전투 시작 <small>덱 편성 후 출전</small></button>
+      <button id="lobbyShopBtn" class="lobby-btn lobby-shop" type="button"><span>◇</span>상점</button>
       <button id="lobbyMissionBtn" class="lobby-btn lobby-mission" type="button">미션</button>
-      <button id="lobbyBattleBtn" class="lobby-btn lobby-battle" type="button">전투</button>
     </div>
     <p id="lobbyMenuNotice" class="lobby-menu-notice" aria-live="polite"></p>
   </section>
 
 
-  <section id="recruitScreen" class="recruit-screen is-hidden" aria-label="픽셀디펜스 모집 화면">
+  <section id="recruitScreen" class="recruit-screen is-hidden" aria-label="신 모집 화면">
     <div class="recruit-scanline" aria-hidden="true"></div>
 
     <button id="recruitBackBtn" class="recruit-ui-btn recruit-back-btn" type="button">← 로비</button>
@@ -76,8 +88,8 @@
 
     <div class="recruit-frame">
       <div class="recruit-title-area">
-        <p class="recruit-kicker">KNIGHT KINGDOM PICK UP</p>
-        <h1 class="recruit-logo">기사단 모집</h1>
+        <p class="recruit-kicker">OLYMPUS DIVINE SUMMON</p>
+        <h1 class="recruit-logo">신 모집</h1>
       </div>
 
       <div class="recruit-banner" aria-label="픽업 캐릭터 일러스트 영역">
@@ -91,8 +103,8 @@
         <div class="recruit-path" aria-hidden="true"></div>
 
         <div class="pickup-card-title">
-          <span>★ PICK UP HERO ★</span>
-          <strong>푸른 맹세의 기사 · 루미나</strong>
+          <span>LIMITED PICK UP</span>
+          <strong>천둥의 지배자 · 제우스</strong>
         </div>
 
         <div class="pickup-hero-art" aria-hidden="true">
@@ -116,8 +128,9 @@
       </div>
 
       <div class="recruit-command-area">
-        <p id="recruitNotice" class="recruit-notice">왕국 기사단에 합류할 영웅을 모집하세요.</p>
+        <p id="recruitNotice" class="recruit-notice">올림포스의 신을 소환하세요. 병사는 소환 대상에 포함되지 않습니다.</p>
         <div class="recruit-pull-buttons">
+          <button class="recruit-pull-btn" type="button">확률 보기</button>
           <button id="recruitPullOneBtn" class="recruit-pull-btn pull-one" type="button">1회 뽑기</button>
           <button id="recruitPullTenBtn" class="recruit-pull-btn pull-ten" type="button">10회 뽑기</button>
         </div>
@@ -161,16 +174,16 @@
   </section>
 
 
-  <section id="shopScreen" class="shop-screen is-hidden" aria-label="픽셀디펜스 상점 화면">
+  <section id="shopScreen" class="shop-screen is-hidden" aria-label="신화창조 상점 화면">
     <div class="shop-scanline" aria-hidden="true"></div>
 
     <button id="shopBackBtn" class="shop-ui-btn shop-back-btn" type="button">← 로비</button>
     <button id="shopCloseBtn" class="shop-ui-btn shop-close-btn" type="button">닫기</button>
 
     <div class="shop-title-box">
-      <p class="shop-kicker">PIXEL FANTASY WESTERN SHOP</p>
-      <h1 class="shop-logo">황야의 상점</h1>
-      <p>마법 장비와 서부 개척 장비가 함께 놓인 픽셀 상점</p>
+      <p class="shop-kicker">OLYMPUS SPECIAL OFFERS</p>
+      <h1 class="shop-logo">신들의 상점</h1>
+      <p>성장을 위한 기간 한정 패키지와 다이아 상품</p>
     </div>
 
     <div class="shop-scene" aria-hidden="true">
@@ -198,24 +211,29 @@
       </div>
 
       <div class="shop-item-grid">
-        <button class="shop-card" type="button" data-item="비트">
+        <button class="shop-card" type="button" data-item="스타터 패키지">
           <span class="shop-item-icon bit-icon" aria-hidden="true"></span>
-          <strong>비트</strong>
+          <strong>스타터 패키지</strong>
         </button>
 
-        <button class="shop-card" type="button" data-item="픽셀코어">
+        <button class="shop-card" type="button" data-item="성장 패키지">
           <span class="shop-item-icon pixelcore-icon" aria-hidden="true"></span>
-          <strong>픽셀코어</strong>
+          <strong>성장 패키지</strong>
         </button>
 
-        <button class="shop-card" type="button" data-item="픽셀조각">
+        <button class="shop-card" type="button" data-item="월정액">
           <span class="shop-item-icon pixelshard-icon" aria-hidden="true"></span>
-          <strong>픽셀조각</strong>
+          <strong>월정액</strong>
         </button>
 
-        <button class="shop-card" type="button" data-item="픽셀토큰">
+        <button class="shop-card" type="button" data-item="시즌패스">
           <span class="shop-item-icon pixeltoken-icon" aria-hidden="true"></span>
-          <strong>픽셀토큰</strong>
+          <strong>시즌패스</strong>
+        </button>
+
+        <button class="shop-card" type="button" data-item="다이아 구매">
+          <span class="shop-item-icon pixelcore-icon" aria-hidden="true"></span>
+          <strong>다이아 구매</strong>
         </button>
       </div>
 
@@ -226,28 +244,38 @@
 
 
 
-  <section id="formationScreen" class="formation-screen is-hidden" aria-label="픽셀디펜스 편성 화면">
+  <section id="missionScreen" class="mission-screen is-hidden" aria-label="미션 화면">
+    <button id="missionBackBtn" class="screen-back-btn" type="button">← 로비</button>
+    <div class="mission-shell">
+      <p class="screen-kicker">QUESTS OF OLYMPUS</p>
+      <h1>미션</h1>
+      <div class="mission-tabs"><button class="is-active">일일 미션</button><button>주간 미션</button><button>업적</button></div>
+      <div class="mission-list">
+        <article><div><strong>병사 3회 소환</strong><small>0 / 3</small></div><span>골드 500</span><button disabled>진행 중</button></article>
+        <article><div><strong>전투 1회 승리</strong><small>0 / 1</small></div><span>다이아 20</span><button disabled>진행 중</button></article>
+        <article><div><strong>신 성장 1회</strong><small>0 / 1</small></div><span>번개의 정수 5</span><button disabled>진행 중</button></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="formationScreen" class="formation-screen is-hidden" aria-label="신화창조 성장 및 편성 화면">
     <div class="formation-scanline" aria-hidden="true"></div>
 
     <button id="formationBackBtn" class="formation-ui-btn formation-back-btn" type="button">← 로비</button>
     <button id="formationCloseBtn" class="formation-ui-btn formation-close-btn" type="button">닫기</button>
 
     <div class="formation-topbar" aria-label="재화 정보">
-      <div class="formation-currency orange"><span>티켓</span><strong>0</strong></div>
-      <div class="formation-currency purple"><span>토큰</span><strong>0</strong></div>
-      <div class="formation-currency blue"><span>젬</span><strong>0</strong></div>
-      <div class="formation-currency gold"><span>골드</span><strong>0</strong></div>
+      <div class="formation-currency orange"><span>골드</span><strong>12,500</strong></div>
+      <div class="formation-currency blue"><span>다이아</span><strong>680</strong></div>
       <button class="formation-gear" type="button" aria-label="설정">⚙</button>
     </div>
 
     <div class="formation-shell">
       <aside class="formation-sidebar" aria-label="편성 메뉴">
-        <div class="formation-sidebar-title">편성</div>
-        <button class="formation-side-btn is-active" type="button">편성</button>
-        <button class="formation-side-btn is-disabled" type="button" disabled>컬렉션</button>
-        <button class="formation-side-btn" type="button">모집</button>
-        <button class="formation-side-btn" type="button">상점</button>
-        <button class="formation-side-btn" type="button">미션</button>
+        <div class="formation-sidebar-title">성장</div>
+        <button class="formation-side-btn" type="button">신 성장</button>
+        <button class="formation-side-btn" type="button">병사 성장</button>
+        <button class="formation-side-btn is-active" type="button">덱 편성</button>
       </aside>
 
       <section class="formation-main-panel">
@@ -257,9 +285,9 @@
             <h1 class="formation-logo">덱 편성</h1>
           </div>
           <div class="formation-category-tabs" role="tablist" aria-label="편성 카테고리">
-            <button class="formation-category-tab is-active" type="button" data-formation-tab="deck">덱</button>
-            <button class="formation-category-tab" type="button" data-formation-tab="unit">유닛</button>
-            <button class="formation-category-tab" type="button" data-formation-tab="tower">타워</button>
+            <button class="formation-category-tab is-active" type="button" data-formation-tab="deck">덱 편성</button>
+            <button class="formation-category-tab" type="button" data-formation-tab="unit">신 성장</button>
+            <button class="formation-category-tab" type="button" data-formation-tab="tower">병사 성장</button>
           </div>
         </header>
 
@@ -275,16 +303,16 @@
 
         <div class="formation-advantage-box">
           <strong>배치 안내</strong>
-          <p>원하는 유닛을 선택해 아래 빈 슬롯에 배치하는 화면입니다. 현재는 UI 시안 단계라 슬롯만 먼저 비워두었습니다.</p>
+          <p><b>제우스 Lv.35</b>와 함께 출전할 병사를 선택하세요. 선택한 병사만 전투에서 소환할 수 있습니다.</p>
         </div>
 
         <div class="formation-slots-panel" aria-label="덱 슬롯">
           <div class="formation-slot-grid">
-            <button class="formation-slot" type="button" aria-label="빈 슬롯 1"><span>+</span></button>
-            <button class="formation-slot" type="button" aria-label="빈 슬롯 2"><span>+</span></button>
-            <button class="formation-slot" type="button" aria-label="빈 슬롯 3"><span>+</span></button>
-            <button class="formation-slot" type="button" aria-label="빈 슬롯 4"><span>+</span></button>
-            <button class="formation-slot" type="button" aria-label="빈 슬롯 5"><span>+</span></button>
+            <button class="formation-slot is-selected" type="button"><span>✓</span><small>방패병</small></button>
+            <button class="formation-slot is-selected" type="button"><span>✓</span><small>궁수</small></button>
+            <button class="formation-slot" type="button"><span>+</span><small>창병</small></button>
+            <button class="formation-slot" type="button"><span>+</span><small>힐러</small></button>
+            <button class="formation-slot" type="button"><span>+</span><small>기병</small></button>
             <button class="formation-slot" type="button" aria-label="빈 슬롯 6"><span>+</span></button>
             <button class="formation-slot" type="button" aria-label="빈 슬롯 7"><span>+</span></button>
             <button class="formation-slot" type="button" aria-label="빈 슬롯 8"><span>+</span></button>
@@ -298,24 +326,25 @@
             <button class="formation-deck-tab is-locked" type="button" disabled>🔒</button>
           </div>
           <p id="formationNotice" class="formation-notice">유닛을 터치하면 빈 슬롯에 배치할 수 있도록 확장할 예정입니다.</p>
+          <div class="formation-action"><span>예상 전투력 <strong>8,420</strong></span><button id="formationBattleBtn" type="button">전투 지역 선택</button></div>
         </div>
       </section>
 
       <aside class="formation-roster-panel" aria-label="보유 유닛 목록">
         <div class="formation-roster-head">
           <strong>보유 유닛</strong>
-          <span>0 / 0</span>
+          <span>2 / 5</span>
         </div>
         <div class="formation-roster-empty">
           <div class="formation-roster-empty-icon">+</div>
-          <p>오른쪽 유닛 목록은 아직 비워둔 상태입니다.</p>
-          <small>추후 모집/획득한 유닛 카드가 이 영역에 표시됩니다.</small>
+          <p>방패병 · 궁수 출전 가능</p>
+          <small>창병, 힐러, 기병은 추후 추가됩니다.</small>
         </div>
       </aside>
     </div>
   </section>
 
-  <section id="stageScreen" class="stage-screen is-hidden" aria-label="픽셀디펜스 스테이지 선택 화면">
+  <section id="stageScreen" class="stage-screen is-hidden" aria-label="신화창조 스테이지 선택 화면">
     <div class="stage-scanline" aria-hidden="true"></div>
 
     <button id="stageBackBtn" class="stage-ui-btn stage-back-btn" type="button">← 로비</button>
@@ -369,25 +398,25 @@
 
   <main class="game-wrap">
     <section class="title-card">
-      <p class="eyebrow">PIXEL DEFENSE · PROTOTYPE</p>
-      <h2>픽셀디펜스</h2>
-      <p>아군 병사를 소환해 적 기지를 밀어붙이는 횡스크롤 디펜스 데모입니다.</p>
+      <p class="eyebrow">GODS OF OLYMPUS · BATTLE</p>
+      <h2>신들의 전장</h2>
+      <p>신력으로 군단을 소환해 적의 성을 무너뜨리세요.</p>
     </section>
 
     <section class="hud">
       <div><span>Wave</span><strong id="waveText">1 / 3</strong></div>
-      <div><span>Gold</span><strong id="goldText">100</strong></div>
+      <div><span>신력</span><strong id="goldText">100</strong></div>
       <div><span>Units</span><strong id="unitCountText">0 / 5</strong></div>
       <div><span>Player Base</span><strong id="playerHpText">100</strong></div>
       <div><span>Enemy Base</span><strong id="enemyHpText">100</strong></div>
     </section>
 
-    <canvas id="gameCanvas" width="960" height="540" aria-label="픽셀디펜스 게임 화면"></canvas>
+    <canvas id="gameCanvas" width="960" height="540" aria-label="신화창조 전투 화면"></canvas>
 
     <section class="controls">
       <button id="startBtn" type="button">게임 시작</button>
-      <button id="summonGuardBtn" type="button">방패병 소환 50G</button>
-      <button id="summonArcherBtn" type="button">궁수 소환 75G</button>
+      <button id="summonGuardBtn" type="button">방패병 · 신력 50</button>
+      <button id="summonArcherBtn" type="button">궁수 · 신력 75</button>
       <button id="restartBtn" type="button">재시작</button>
       <button id="stageSelectBtn" type="button">스테이지 선택</button>
     </section>

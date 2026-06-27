@@ -29,6 +29,8 @@ const lobbyFormationBtn = document.getElementById("lobbyFormationBtn");
 const lobbyRecruitBtn = document.getElementById("lobbyRecruitBtn");
 const lobbyMissionBtn = document.getElementById("lobbyMissionBtn");
 const lobbyMenuNotice = document.getElementById("lobbyMenuNotice");
+const missionScreen = document.getElementById("missionScreen");
+const missionBackBtn = document.getElementById("missionBackBtn");
 const recruitScreen = document.getElementById("recruitScreen");
 const recruitBackBtn = document.getElementById("recruitBackBtn");
 const recruitCloseBtn = document.getElementById("recruitCloseBtn");
@@ -48,6 +50,7 @@ const formationNotice = document.getElementById("formationNotice");
 const formationCategoryTabs = document.querySelectorAll(".formation-category-tab");
 const formationDeckTabs = document.querySelectorAll(".formation-deck-tab:not(.is-locked)");
 const formationSlots = document.querySelectorAll(".formation-slot");
+const formationBattleBtn = document.getElementById("formationBattleBtn");
 const lobbyExitBtn = document.getElementById("lobbyExitBtn");
 const lobbyNotice = document.getElementById("lobbyNotice");
 const shopScreen = document.getElementById("shopScreen");
@@ -359,6 +362,7 @@ function showStageSelect() {
   if (shopScreen) shopScreen.classList.add("is-hidden");
   if (recruitScreen) recruitScreen.classList.add("is-hidden");
   if (formationScreen) formationScreen.classList.add("is-hidden");
+  if (missionScreen) missionScreen.classList.add("is-hidden");
   hideRecruitDoorScene(true);
   if (chapterPanel) chapterPanel.classList.remove("is-hidden");
   if (stagePanel) stagePanel.classList.add("is-hidden");
@@ -423,6 +427,7 @@ function showShop() {
   if (shopScreen) shopScreen.classList.remove("is-hidden");
   if (recruitScreen) recruitScreen.classList.add("is-hidden");
   if (formationScreen) formationScreen.classList.add("is-hidden");
+  if (missionScreen) missionScreen.classList.add("is-hidden");
   hideRecruitDoorScene(true);
   document.body.classList.remove("game-started", "in-lobby", "in-stage-select", "in-recruit", "in-formation");
   document.body.classList.add("in-shop");
@@ -445,6 +450,7 @@ function showFormation() {
   if (shopScreen) shopScreen.classList.add("is-hidden");
   if (recruitScreen) recruitScreen.classList.add("is-hidden");
   if (formationScreen) formationScreen.classList.remove("is-hidden");
+  if (missionScreen) missionScreen.classList.add("is-hidden");
   hideRecruitDoorScene(true);
   document.body.classList.remove("game-started", "in-lobby", "in-stage-select", "in-shop", "in-recruit", "in-formation");
   document.body.classList.add("in-formation");
@@ -473,6 +479,7 @@ function showRecruit() {
   if (shopScreen) shopScreen.classList.add("is-hidden");
   if (recruitScreen) recruitScreen.classList.remove("is-hidden");
   if (formationScreen) formationScreen.classList.add("is-hidden");
+  if (missionScreen) missionScreen.classList.add("is-hidden");
   document.body.classList.remove("game-started", "in-lobby", "in-stage-select", "in-shop", "in-formation");
   document.body.classList.add("in-recruit");
 
@@ -614,6 +621,7 @@ function showLobby() {
   if (shopScreen) shopScreen.classList.add("is-hidden");
   if (recruitScreen) recruitScreen.classList.add("is-hidden");
   if (formationScreen) formationScreen.classList.add("is-hidden");
+  if (missionScreen) missionScreen.classList.add("is-hidden");
   hideRecruitDoorScene(true);
   document.body.classList.remove("game-started", "in-stage-select", "in-shop", "in-recruit", "in-formation");
   document.body.classList.add("in-lobby");
@@ -639,6 +647,7 @@ function showTitle() {
   if (shopScreen) shopScreen.classList.add("is-hidden");
   if (recruitScreen) recruitScreen.classList.add("is-hidden");
   if (formationScreen) formationScreen.classList.add("is-hidden");
+  if (missionScreen) missionScreen.classList.add("is-hidden");
   hideRecruitDoorScene(true);
   document.body.classList.remove("game-started", "in-lobby", "in-stage-select", "in-shop", "in-recruit", "in-formation");
   if (lobbyNotice) {
@@ -664,7 +673,14 @@ function showFormationNotice() {
 }
 
 function showMissionNotice() {
-  showLobbyMenuNotice("미션");
+  if (titleScreen) titleScreen.classList.add("is-hidden");
+  if (lobbyScreen) lobbyScreen.classList.add("is-hidden");
+  if (stageScreen) stageScreen.classList.add("is-hidden");
+  if (shopScreen) shopScreen.classList.add("is-hidden");
+  if (recruitScreen) recruitScreen.classList.add("is-hidden");
+  if (formationScreen) formationScreen.classList.add("is-hidden");
+  if (missionScreen) missionScreen.classList.remove("is-hidden");
+  document.body.classList.remove("game-started", "in-lobby", "in-stage-select", "in-shop", "in-recruit", "in-formation");
 }
 
 function showShopNotice() {
@@ -720,6 +736,7 @@ function startGame(stageNumber = selectedStage) {
   if (shopScreen) shopScreen.classList.add("is-hidden");
   if (recruitScreen) recruitScreen.classList.add("is-hidden");
   if (formationScreen) formationScreen.classList.add("is-hidden");
+  if (missionScreen) missionScreen.classList.add("is-hidden");
   hideRecruitDoorScene(true);
   document.body.classList.add("game-started");
   document.body.classList.remove("in-lobby", "in-stage-select", "in-shop", "in-recruit", "in-formation");
@@ -1769,13 +1786,15 @@ window.addEventListener("keyup", (event) => {
 
 startBtn.addEventListener("click", () => startGame(selectedStage));
 titleStartBtn.addEventListener("click", showLobby);
-if (lobbyBattleBtn) lobbyBattleBtn.addEventListener("click", showStageSelect);
+if (lobbyBattleBtn) lobbyBattleBtn.addEventListener("click", showFormation);
 if (lobbyShopBtn) lobbyShopBtn.addEventListener("click", showShop);
 if (lobbyFormationBtn) lobbyFormationBtn.addEventListener("click", showFormation);
 if (lobbyRecruitBtn) lobbyRecruitBtn.addEventListener("click", showRecruit);
 if (lobbyMissionBtn) lobbyMissionBtn.addEventListener("click", showMissionNotice);
+if (missionBackBtn) missionBackBtn.addEventListener("click", showLobby);
 if (formationBackBtn) formationBackBtn.addEventListener("click", showLobby);
 if (formationCloseBtn) formationCloseBtn.addEventListener("click", showLobby);
+if (formationBattleBtn) formationBattleBtn.addEventListener("click", showStageSelect);
 formationCategoryTabs.forEach((tab) => {
   tab.addEventListener("click", () => setFormationCategoryTab(tab.dataset.formationTab || "deck"));
 });
