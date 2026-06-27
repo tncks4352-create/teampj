@@ -1,3 +1,11 @@
+// 외부 시스템 정의 확인 (defer 로드 보장)
+if (typeof CurrencySystem === 'undefined') {
+  console.warn('CurrencySystem not loaded yet');
+}
+if (typeof GachaSystem === 'undefined') {
+  console.warn('GachaSystem not loaded yet');
+}
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
@@ -252,17 +260,19 @@ function createInitialState() {
     },
 
     // 통화 시스템
-    currency: CurrencySystem.createInitialCurrency(),
+    currency: (typeof CurrencySystem !== 'undefined') ? CurrencySystem.createInitialCurrency() : { gold: 5000, premium: 150, battlePass: 0, history: [] },
 
     // 가챠 시스템
-    gacha: GachaSystem.createInitialGacha(),
+    gacha: (typeof GachaSystem !== 'undefined') ? GachaSystem.createInitialGacha() : { pity: 0, pity10: 0, pulls: [] },
   };
 }
 
 function resetGame() {
   if (animationId) cancelAnimationFrame(animationId);
   gameState = createInitialState();
-  GachaSystem.setGameState(gameState);  // 가챠 시스템과 연결
+  if (typeof GachaSystem !== 'undefined') {
+    GachaSystem.setGameState(gameState);  // 가챠 시스템과 연결
+  }
   lastTime = performance.now();
   updateHud();
   updateButtons();
@@ -775,7 +785,16 @@ function updateButtons() {
 
 function spendGold(amount) {
   if (!gameState.running || gameState.gameOver || gameState.clear) return false;
-  return CurrencySystem.spendCurrency('gold', amount, 'battle_summon');
+  if (typeof CurrencySystem !== 'undefined') {
+    return CurrencySystem.spendCurrency('gold', amount, 'battle_summon');
+  } else {
+    // Fallback: CurrencySystem이 없으면 직접 처리
+    if (gameState.currency.gold < amount) return false;
+    gameState.currency.gold -= amount;
+    updateHud();
+    updateButtons();
+    return true;
+  }
 }
 
 function summonGuard() {
@@ -966,7 +985,11 @@ function updateWave(dt) {
   const waveFinished = gameState.spawnedInWave >= gameState.enemiesToSpawn && gameState.enemies.length === 0;
   if (waveFinished && gameState.wave < gameState.maxWave) {
     gameState.waveBreakTimer = 3;
-    CurrencySystem.addCurrency('gold', 60, 'wave_complete');
+    if (typeof CurrencySystem !== 'undefined') {
+      CurrencySystem.addCurrency('gold', 60, 'wave_complete');
+    } else {
+      gameState.currency.gold += 60;
+    }
   } else if (waveFinished && gameState.wave >= gameState.maxWave) {
     completeStage(`STAGE ${selectedStage} CLEAR! 모든 웨이브 방어 성공`);
   }
@@ -1123,7 +1146,13 @@ function cleanupDeadEntities() {
   const beforeEnemies = gameState.enemies.length;
   gameState.enemies = gameState.enemies.filter((enemy) => enemy.hp > 0);
   const killed = beforeEnemies - gameState.enemies.length;
-  if (killed > 0) CurrencySystem.addCurrency('gold', killed * 18, 'enemy_kill');
+  if (killed > 0) {
+    if (typeof CurrencySystem !== 'undefined') {
+      CurrencySystem.addCurrency('gold', killed * 18, 'enemy_kill');
+    } else {
+      gameState.currency.gold += killed * 18;
+    }
+  }
 
   // 소환 제한 슬롯은 살아있는 병사 수를 기준으로 계산합니다.
   // 병사가 죽으면 이 정리 단계 이후 자동으로 빈 자리가 생깁니다.
@@ -1161,7 +1190,11 @@ function update(dt) {
   gameState.messageTimer = Math.max(0, gameState.messageTimer - dt);
   gameState.goldTimer += dt;
   if (gameState.goldTimer >= 1) {
-    CurrencySystem.addCurrency('gold', 12, 'passive_income');
+    if (typeof CurrencySystem !== 'undefined') {
+      CurrencySystem.addCurrency('gold', 12, 'passive_income');
+    } else {
+      gameState.currency.gold += 12;
+    }
     gameState.goldTimer = 0;
   }
 
@@ -1781,4 +1814,9 @@ summonArcherBtn.addEventListener("click", summonArcher);
 if (skillBtn) skillBtn.addEventListener("click", castHolySlash);
 // 전투 개편: 캔버스 터치 직접 공격은 제거했습니다.
 
-resetGame();
+// 모든 스크립트 로드 후 게임 초기화
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', resetGame);
+} else {
+  resetGame();
+}
