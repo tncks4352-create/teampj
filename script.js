@@ -207,6 +207,7 @@ function createInitialState() {
   const stageConfig = getStageConfig(selectedStage);
 
   return {
+    // 전투 시스템
     running: false,
     gameOver: false,
     clear: false,
@@ -217,7 +218,6 @@ function createInitialState() {
     message: `Stage ${selectedStage} 준비 완료`,
     messageTimer: 0,
     wave: 1,
-    gold: stageConfig.startGold,
     goldTimer: 0,
     playerBaseHp: 100,
     enemyBaseHp: stageConfig.enemyBaseHp,
@@ -230,12 +230,39 @@ function createInitialState() {
     projectiles: [],
     units: [],
     enemies: [],
+
+    // 신 시스템
+    gods: {
+      inventory: [],
+      equipped: {
+        deck1: [null, null, null, null, null],
+        deck2: [null, null, null, null, null],
+      },
+    },
+
+    // 재료 시스템
+    inventory: {
+      fragments: {},      // { athena: 45, ares: 20 }
+      essences: {
+        normal: 0,
+        rare: 0,
+        epic: 0,
+      },
+      materials: {},
+    },
+
+    // 통화 시스템
+    currency: CurrencySystem.createInitialCurrency(),
+
+    // 가챠 시스템
+    gacha: GachaSystem.createInitialGacha(),
   };
 }
 
 function resetGame() {
   if (animationId) cancelAnimationFrame(animationId);
   gameState = createInitialState();
+  GachaSystem.setGameState(gameState);  // 가챠 시스템과 연결
   lastTime = performance.now();
   updateHud();
   updateButtons();
@@ -699,7 +726,7 @@ function restartGame() {
 
 function updateHud() {
   waveText.textContent = `${gameState.wave} / ${gameState.maxWave}`;
-  goldText.textContent = Math.floor(gameState.gold);
+  goldText.textContent = Math.floor(gameState.currency.gold);
   if (unitCountText) unitCountText.textContent = `${getActiveUnitCount()} / ${MAX_SUMMONED_UNITS}`;
   playerHpText.textContent = Math.max(0, Math.ceil(gameState.playerBaseHp));
   enemyHpText.textContent = Math.max(0, Math.ceil(gameState.enemyBaseHp));
@@ -728,13 +755,13 @@ function updateButtons() {
 
   if (summonGuardBtn) {
     summonGuardBtn.textContent = unitLimitReached ? `방패병 소환 제한 ${slotText}` : `방패병 소환 50G · ${slotText}`;
-    summonGuardBtn.disabled = disabled || unitLimitReached || gameState.gold < 50;
+    summonGuardBtn.disabled = disabled || unitLimitReached || gameState.currency.gold < 50;
     summonGuardBtn.title = unitLimitReached ? "아군 병사가 사망하면 다시 소환할 수 있습니다." : "방패병을 소환합니다.";
   }
 
   if (summonArcherBtn) {
     summonArcherBtn.textContent = unitLimitReached ? `궁수 소환 제한 ${slotText}` : `궁수 소환 75G · ${slotText}`;
-    summonArcherBtn.disabled = disabled || unitLimitReached || gameState.gold < 75;
+    summonArcherBtn.disabled = disabled || unitLimitReached || gameState.currency.gold < 75;
     summonArcherBtn.title = unitLimitReached ? "아군 병사가 사망하면 다시 소환할 수 있습니다." : "궁수를 소환합니다.";
   }
 
@@ -747,11 +774,8 @@ function updateButtons() {
 }
 
 function spendGold(amount) {
-  if (!gameState.running || gameState.gold < amount || gameState.gameOver || gameState.clear) return false;
-  gameState.gold -= amount;
-  updateHud();
-  updateButtons();
-  return true;
+  if (!gameState.running || gameState.gameOver || gameState.clear) return false;
+  return CurrencySystem.spendCurrency('gold', amount, 'battle_summon');
 }
 
 function summonGuard() {
@@ -942,7 +966,7 @@ function updateWave(dt) {
   const waveFinished = gameState.spawnedInWave >= gameState.enemiesToSpawn && gameState.enemies.length === 0;
   if (waveFinished && gameState.wave < gameState.maxWave) {
     gameState.waveBreakTimer = 3;
-    gameState.gold += 60;
+    CurrencySystem.addCurrency('gold', 60, 'wave_complete');
   } else if (waveFinished && gameState.wave >= gameState.maxWave) {
     completeStage(`STAGE ${selectedStage} CLEAR! 모든 웨이브 방어 성공`);
   }
@@ -1099,7 +1123,7 @@ function cleanupDeadEntities() {
   const beforeEnemies = gameState.enemies.length;
   gameState.enemies = gameState.enemies.filter((enemy) => enemy.hp > 0);
   const killed = beforeEnemies - gameState.enemies.length;
-  if (killed > 0) gameState.gold += killed * 18;
+  if (killed > 0) CurrencySystem.addCurrency('gold', killed * 18, 'enemy_kill');
 
   // 소환 제한 슬롯은 살아있는 병사 수를 기준으로 계산합니다.
   // 병사가 죽으면 이 정리 단계 이후 자동으로 빈 자리가 생깁니다.
@@ -1137,7 +1161,7 @@ function update(dt) {
   gameState.messageTimer = Math.max(0, gameState.messageTimer - dt);
   gameState.goldTimer += dt;
   if (gameState.goldTimer >= 1) {
-    gameState.gold += 12;
+    CurrencySystem.addCurrency('gold', 12, 'passive_income');
     gameState.goldTimer = 0;
   }
 
