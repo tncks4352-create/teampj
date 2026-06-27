@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>픽셀디펜스</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <section id="titleScreen" class="title-screen" aria-label="픽셀디펜스 타이틀 화면">
+    <div class="pixel-stars" aria-hidden="true">
+      <span></span><span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="title-panel">
+      <p class="title-kicker">ARCADE LINE DEFENSE</p>
+      <h1 class="pixel-logo" aria-label="픽셀디펜스">픽셀디펜스</h1>
+      <p class="title-copy">병사를 소환해 몬스터 기지를 밀어붙이는 픽셀풍 횡스크롤 디펜스</p>
+
+      <div class="title-preview" aria-hidden="true">
+        <div class="mini-base player"></div>
+        <div class="mini-unit"></div>
+        <div class="mini-unit mini-unit-second"></div>
+        <div class="mini-lane"></div>
+        <div class="mini-enemy"></div>
+        <div class="mini-base enemy"></div>
+      </div>
+
+      <button id="titleStartBtn" class="title-start-btn" type="button">▶ 게임 시작</button>
+      <p class="title-help">1 방패병 소환 · 2 궁수 소환 · 최대 5명 유지</p>
+    </div>
+  </section>
+
+  <section id="lobbyScreen" class="lobby-screen is-hidden" aria-label="픽셀디펜스 로비 화면">
+    <div class="lobby-scanline" aria-hidden="true"></div>
+
+    <button id="lobbyExitBtn" class="lobby-btn lobby-exit" type="button">게임종료</button>
+
+    <div class="lobby-stage" aria-hidden="true">
+      <div class="lobby-sun"></div>
+      <div class="lobby-cloud cloud-a"></div>
+      <div class="lobby-cloud cloud-b"></div>
+      <div class="lobby-mountain mountain-a"></div>
+      <div class="lobby-mountain mountain-b"></div>
+      <div class="lobby-ground"></div>
+      <div class="lobby-path"></div>
+      <div class="lobby-shop-building">
+        <span>SHOP</span>
+      </div>
+      <div class="lobby-castle">
+        <span></span>
+      </div>
+      <div class="lobby-hero-pixel"></div>
+      <div class="lobby-guard-pixel"></div>
+      <div class="lobby-flag"></div>
+    </div>
+
+
+    <div class="lobby-menu-bar" aria-label="로비 주요 메뉴">
+      <button id="lobbyShopBtn" class="lobby-btn lobby-shop" type="button">상점</button>
+      <button id="lobbyFormationBtn" class="lobby-btn lobby-formation" type="button">편성</button>
+      <button id="lobbyRecruitBtn" class="lobby-btn lobby-recruit" type="button">모집</button>
+      <button id="lobbyMissionBtn" class="lobby-btn lobby-mission" type="button">미션</button>
+      <button id="lobbyBattleBtn" class="lobby-btn lobby-battle" type="button">전투</button>
+    </div>
+    <p id="lobbyMenuNotice" class="lobby-menu-notice" aria-live="polite"></p>
+  </section>
+
+
+  <section id="recruitScreen" class="recruit-screen is-hidden" aria-label="픽셀디펜스 모집 화면">
+    <div class="recruit-scanline" aria-hidden="true"></div>
+
+    <button id="recruitBackBtn" class="recruit-ui-btn recruit-back-btn" type="button">← 로비</button>
+    <button id="recruitCloseBtn" class="recruit-ui-btn recruit-close-btn" type="button">닫기</button>
+
+    <div class="recruit-frame">
+      <div class="recruit-title-area">
+        <p class="recruit-kicker">KNIGHT KINGDOM PICK UP</p>
+        <h1 class="recruit-logo">기사단 모집</h1>
+      </div>
+
+      <div class="recruit-banner" aria-label="픽업 캐릭터 일러스트 영역">
+        <div class="recruit-sky-grid" aria-hidden="true"></div>
+        <div class="recruit-sun" aria-hidden="true"></div>
+        <div class="recruit-cloud recruit-cloud-a" aria-hidden="true"></div>
+        <div class="recruit-cloud recruit-cloud-b" aria-hidden="true"></div>
+        <div class="recruit-castle recruit-castle-left" aria-hidden="true"></div>
+        <div class="recruit-castle recruit-castle-right" aria-hidden="true"></div>
+        <div class="recruit-meadow" aria-hidden="true"></div>
+        <div class="recruit-path" aria-hidden="true"></div>
+
+        <div class="pickup-card-title">
+          <span>★ PICK UP HERO ★</span>
+          <strong>푸른 맹세의 기사 · 루미나</strong>
+        </div>
+
+        <div class="pickup-hero-art" aria-hidden="true">
+          <div class="hero-glow"></div>
+          <div class="hero-cape"></div>
+          <div class="hero-hair"></div>
+          <div class="hero-face"></div>
+          <div class="hero-body"></div>
+          <div class="hero-skirt"></div>
+          <div class="hero-leg hero-leg-left"></div>
+          <div class="hero-leg hero-leg-right"></div>
+          <div class="hero-arm hero-arm-left"></div>
+          <div class="hero-arm hero-arm-right"></div>
+          <div class="hero-sword"></div>
+          <div class="hero-crown"></div>
+        </div>
+
+        <div class="recruit-sparkles" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="recruit-command-area">
+        <p id="recruitNotice" class="recruit-notice">왕국 기사단에 합류할 영웅을 모집하세요.</p>
+        <div class="recruit-pull-buttons">
+          <button id="recruitPullOneBtn" class="recruit-pull-btn pull-one" type="button">1회 뽑기</button>
+          <button id="recruitPullTenBtn" class="recruit-pull-btn pull-ten" type="button">10회 뽑기</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="recruitDoorScene" class="recruit-door-scene is-hidden" aria-label="모집 문 개방 연출 화면">
+      <div class="door-pixel-scanline" aria-hidden="true"></div>
+      <button id="recruitDoorCloseBtn" class="door-close-btn" type="button">닫기</button>
+
+      <div id="doorLight" class="door-light" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+
+      <div id="recruitDoorFrame" class="recruit-door-frame" role="button" tabindex="0" aria-label="문을 터치해서 모집 연출을 진행">
+        <div class="door-kingdom-bg" aria-hidden="true">
+          <div class="door-tower door-tower-left"></div>
+          <div class="door-tower door-tower-right"></div>
+          <div class="door-flag door-flag-left"></div>
+          <div class="door-flag door-flag-right"></div>
+        </div>
+
+        <div class="door-arch" aria-hidden="true"></div>
+        <div class="door-panel-wrap" aria-hidden="true">
+          <div class="door-panel door-left">
+            <span class="door-metal-line"></span>
+            <span class="door-knob"></span>
+          </div>
+          <div class="door-panel door-right">
+            <span class="door-metal-line"></span>
+            <span class="door-knob"></span>
+          </div>
+        </div>
+
+        <div id="doorKnockText" class="door-knock-text" aria-hidden="true">쾅!</div>
+        <p id="doorTapGuide" class="door-tap-guide">문을 터치하세요</p>
+        <p id="doorResultText" class="door-result-text"></p>
+      </div>
+    </div>
+
+  </section>
+
+
+  <section id="shopScreen" class="shop-screen is-hidden" aria-label="픽셀디펜스 상점 화면">
+    <div class="shop-scanline" aria-hidden="true"></div>
+
+    <button id="shopBackBtn" class="shop-ui-btn shop-back-btn" type="button">← 로비</button>
+    <button id="shopCloseBtn" class="shop-ui-btn shop-close-btn" type="button">닫기</button>
+
+    <div class="shop-title-box">
+      <p class="shop-kicker">PIXEL FANTASY WESTERN SHOP</p>
+      <h1 class="shop-logo">황야의 상점</h1>
+      <p>마법 장비와 서부 개척 장비가 함께 놓인 픽셀 상점</p>
+    </div>
+
+    <div class="shop-scene" aria-hidden="true">
+      <div class="shop-moon"></div>
+      <div class="shop-cloud shop-cloud-a"></div>
+      <div class="shop-cloud shop-cloud-b"></div>
+      <div class="shop-saloon">
+        <span class="shop-sign-board">SHOP</span>
+        <span class="shop-door"></span>
+        <span class="shop-window left"></span>
+        <span class="shop-window right"></span>
+      </div>
+      <div class="shop-wagon">
+        <span></span>
+      </div>
+      <div class="shopkeeper"></div>
+      <div class="shop-hero"></div>
+      <div class="shop-ground"></div>
+    </div>
+
+    <div class="shop-board">
+      <div class="shop-wallet">
+        <span>보유 코인</span>
+        <strong>준비중</strong>
+      </div>
+
+      <div class="shop-item-grid">
+        <button class="shop-card" type="button" data-item="비트">
+          <span class="shop-item-icon bit-icon" aria-hidden="true"></span>
+          <strong>비트</strong>
+        </button>
+
+        <button class="shop-card" type="button" data-item="픽셀코어">
+          <span class="shop-item-icon pixelcore-icon" aria-hidden="true"></span>
+          <strong>픽셀코어</strong>
+        </button>
+
+        <button class="shop-card" type="button" data-item="픽셀조각">
+          <span class="shop-item-icon pixelshard-icon" aria-hidden="true"></span>
+          <strong>픽셀조각</strong>
+        </button>
+
+        <button class="shop-card" type="button" data-item="픽셀토큰">
+          <span class="shop-item-icon pixeltoken-icon" aria-hidden="true"></span>
+          <strong>픽셀토큰</strong>
+        </button>
+      </div>
+
+      <p id="shopNotice" class="shop-notice">상점 품목을 선택하세요.</p>
+    </div>
+  </section>
+
+
+
+
+  <section id="formationScreen" class="formation-screen is-hidden" aria-label="픽셀디펜스 편성 화면">
+    <div class="formation-scanline" aria-hidden="true"></div>
+
+    <button id="formationBackBtn" class="formation-ui-btn formation-back-btn" type="button">← 로비</button>
+    <button id="formationCloseBtn" class="formation-ui-btn formation-close-btn" type="button">닫기</button>
+
+    <div class="formation-topbar" aria-label="재화 정보">
+      <div class="formation-currency orange"><span>티켓</span><strong>0</strong></div>
+      <div class="formation-currency purple"><span>토큰</span><strong>0</strong></div>
+      <div class="formation-currency blue"><span>젬</span><strong>0</strong></div>
+      <div class="formation-currency gold"><span>골드</span><strong>0</strong></div>
+      <button class="formation-gear" type="button" aria-label="설정">⚙</button>
+    </div>
+
+    <div class="formation-shell">
+      <aside class="formation-sidebar" aria-label="편성 메뉴">
+        <div class="formation-sidebar-title">편성</div>
+        <button class="formation-side-btn is-active" type="button">편성</button>
+        <button class="formation-side-btn is-disabled" type="button" disabled>컬렉션</button>
+        <button class="formation-side-btn" type="button">모집</button>
+        <button class="formation-side-btn" type="button">상점</button>
+        <button class="formation-side-btn" type="button">미션</button>
+      </aside>
+
+      <section class="formation-main-panel">
+        <header class="formation-header-row">
+          <div class="formation-title-box">
+            <p class="formation-kicker">FORMATION</p>
+            <h1 class="formation-logo">덱 편성</h1>
+          </div>
+          <div class="formation-category-tabs" role="tablist" aria-label="편성 카테고리">
+            <button class="formation-category-tab is-active" type="button" data-formation-tab="deck">덱</button>
+            <button class="formation-category-tab" type="button" data-formation-tab="unit">유닛</button>
+            <button class="formation-category-tab" type="button" data-formation-tab="tower">타워</button>
+          </div>
+        </header>
+
+        <div class="formation-filter-row">
+          <button class="formation-filter-btn" type="button">모든 등급</button>
+          <button class="formation-filter-btn" type="button">모든 유닛</button>
+          <div class="formation-attribute-group" aria-label="속성 필터">
+            <span class="formation-attribute fire">화염</span>
+            <span class="formation-attribute nature">자연</span>
+            <span class="formation-attribute water">물</span>
+          </div>
+        </div>
+
+        <div class="formation-advantage-box">
+          <strong>배치 안내</strong>
+          <p>원하는 유닛을 선택해 아래 빈 슬롯에 배치하는 화면입니다. 현재는 UI 시안 단계라 슬롯만 먼저 비워두었습니다.</p>
+        </div>
+
+        <div class="formation-slots-panel" aria-label="덱 슬롯">
+          <div class="formation-slot-grid">
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 1"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 2"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 3"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 4"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 5"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 6"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 7"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 8"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 9"><span>+</span></button>
+            <button class="formation-slot" type="button" aria-label="빈 슬롯 10"><span>+</span></button>
+          </div>
+          <div class="formation-deck-tabs" aria-label="덱 페이지">
+            <button class="formation-deck-tab is-active" type="button" data-deck-page="1">1</button>
+            <button class="formation-deck-tab" type="button" data-deck-page="2">2</button>
+            <button class="formation-deck-tab is-locked" type="button" disabled>🔒</button>
+            <button class="formation-deck-tab is-locked" type="button" disabled>🔒</button>
+          </div>
+          <p id="formationNotice" class="formation-notice">유닛을 터치하면 빈 슬롯에 배치할 수 있도록 확장할 예정입니다.</p>
+        </div>
+      </section>
+
+      <aside class="formation-roster-panel" aria-label="보유 유닛 목록">
+        <div class="formation-roster-head">
+          <strong>보유 유닛</strong>
+          <span>0 / 0</span>
+        </div>
+        <div class="formation-roster-empty">
+          <div class="formation-roster-empty-icon">+</div>
+          <p>오른쪽 유닛 목록은 아직 비워둔 상태입니다.</p>
+          <small>추후 모집/획득한 유닛 카드가 이 영역에 표시됩니다.</small>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="stageScreen" class="stage-screen is-hidden" aria-label="픽셀디펜스 스테이지 선택 화면">
+    <div class="stage-scanline" aria-hidden="true"></div>
+
+    <button id="stageBackBtn" class="stage-ui-btn stage-back-btn" type="button">← 로비</button>
+
+    <div class="stage-title-box">
+      <p class="stage-kicker">BATTLE MAP</p>
+      <h1 class="stage-logo">스테이지 선택</h1>
+      <p id="stageSelectNotice">Chapter 1을 선택해 전투 지역을 확인하세요.</p>
+    </div>
+
+    <div id="chapterPanel" class="chapter-panel">
+      <button id="chapter1Btn" class="chapter-card" type="button">
+        <span class="chapter-tag">OPEN</span>
+        <strong>Chapter 1</strong>
+        <small>초원의 전초기지</small>
+        <span class="chapter-arrow">▶</span>
+      </button>
+    </div>
+
+    <div id="stagePanel" class="stage-panel is-hidden">
+      <button id="chapterBackBtn" class="stage-ui-btn chapter-back-btn" type="button">← Chapter</button>
+      <h2>Chapter 1</h2>
+      <p class="stage-panel-copy">이전 스테이지를 클리어하면 다음 스테이지가 열립니다.</p>
+
+      <div class="stage-road" aria-hidden="true"></div>
+
+      <div class="stage-card-wrap">
+        <button class="stage-card" type="button" data-stage="1">
+          <span class="stage-number">STAGE 1</span>
+          <strong>풀숲 입구</strong>
+          <small class="stage-status">도전 가능</small>
+          <span class="lock-icon">▶</span>
+        </button>
+
+        <button class="stage-card" type="button" data-stage="2">
+          <span class="stage-number">STAGE 2</span>
+          <strong>몬스터 언덕</strong>
+          <small class="stage-status">잠김</small>
+          <span class="lock-icon">🔒</span>
+        </button>
+
+        <button class="stage-card" type="button" data-stage="3">
+          <span class="stage-number">STAGE 3</span>
+          <strong>마왕의 전초기지</strong>
+          <small class="stage-status">잠김</small>
+          <span class="lock-icon">🔒</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <main class="game-wrap">
+    <section class="title-card">
+      <p class="eyebrow">PIXEL DEFENSE · PROTOTYPE</p>
+      <h2>픽셀디펜스</h2>
+      <p>아군 병사를 소환해 적 기지를 밀어붙이는 횡스크롤 디펜스 데모입니다.</p>
+    </section>
+
+    <section class="hud">
+      <div><span>Wave</span><strong id="waveText">1 / 3</strong></div>
+      <div><span>Gold</span><strong id="goldText">100</strong></div>
+      <div><span>Units</span><strong id="unitCountText">0 / 5</strong></div>
+      <div><span>Player Base</span><strong id="playerHpText">100</strong></div>
+      <div><span>Enemy Base</span><strong id="enemyHpText">100</strong></div>
+    </section>
+
+    <canvas id="gameCanvas" width="960" height="540" aria-label="픽셀디펜스 게임 화면"></canvas>
+
+    <section class="controls">
+      <button id="startBtn" type="button">게임 시작</button>
+      <button id="summonGuardBtn" type="button">방패병 소환 50G</button>
+      <button id="summonArcherBtn" type="button">궁수 소환 75G</button>
+      <button id="restartBtn" type="button">재시작</button>
+      <button id="stageSelectBtn" type="button">스테이지 선택</button>
+    </section>
+
+    <section class="guide">
+      <p><b>조작:</b> 1 방패병 소환 · 2 궁수 소환 · 전투는 병사 자동 전투로 진행됩니다.</p>
+      <p><b>소환 제한:</b> 아군 병사는 최대 5명까지 유지됩니다. 병사가 사망하면 빈 자리가 다시 생깁니다.</p>
+      <p><b>목표:</b> 병사를 계속 소환해 3웨이브를 버티고 적 기지를 파괴하면 승리</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
